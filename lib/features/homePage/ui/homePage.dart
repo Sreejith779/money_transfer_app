@@ -38,6 +38,7 @@ if(state is HomeNavigateActioState){
         switch(state.runtimeType){
           case HomeLoadedState:
             return Scaffold(
+
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 leading: const Padding(
@@ -49,6 +50,7 @@ if(state is HomeNavigateActioState){
                 title: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     Text("Welcome back",style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15
@@ -58,6 +60,7 @@ if(state is HomeNavigateActioState){
                         fontSize: 22,
                         fontWeight: FontWeight.w500
                     ),),
+
                   ],
                 ),
                 actions: const [
@@ -218,7 +221,7 @@ if(state is HomeNavigateActioState){
                             fontSize: 22,
                             fontWeight: FontWeight.w600
                         ),),
-                    )
+                    ),
 
                   ],
                 ),
@@ -232,4 +235,5 @@ if(state is HomeNavigateActioState){
   },
 );
   }
+
 }
