@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_transfer_app/features/paymentPage/ui/paymentPage.dart';
 
 import '../bloc/send_bloc.dart';
 
@@ -30,7 +31,11 @@ class _SendPageState extends State<SendPage> {
       listenWhen: (previous,current)=> current is SendActionState,
       buildWhen: (previous,current)=> current is !SendActionState,
       listener: (context, state) {
-        // TODO: implement listener
+  if(state is SendNavigateActionState){
+    final loadedState = state is SendNavigateActionState;
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+      PaymentPage(currentPerson:loadedState[],)));
+  }
       },
       builder: (context, state) {
         switch(state.runtimeType){
@@ -80,7 +85,9 @@ final filteredList = _searchQuery.isEmpty?loadedState.contactSort():
                             itemCount:  filteredList.length,
                             itemBuilder: (context,index){
                          return InkWell(
-                           onTap: (){},
+                           onTap: (){
+                             sendBloc.add(SendNavigateEvent(sendAmount: filteredList[index]));
+                           },
                            child: Container(
                              margin: const EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(

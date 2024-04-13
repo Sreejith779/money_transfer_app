@@ -16,3 +16,9 @@ List<ContactModel>contactSort(){
  return contact;
 }
 }
+
+class SendNavigateActionState extends SendActionState{
+ final ContactModel clickedPerson;
+
+  SendNavigateActionState({required this.clickedPerson});
+}
