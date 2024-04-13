@@ -9,7 +9,7 @@ final class SendInitial extends SendState {}
 class SendLoadedState extends SendState{
 
  final List<ContactModel>contact = contacts.map((e) =>
-     ContactModel(name: e['name'], number: e['number'])).toList();
+     ContactModel(name: e['name'], number: e['number'], bankingname: e['Banking name'])).toList();
 
 List<ContactModel>contactSort(){
  contact.sort((a,b)=>a.name.compareTo(b.name));

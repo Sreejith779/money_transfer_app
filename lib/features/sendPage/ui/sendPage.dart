@@ -31,11 +31,7 @@ class _SendPageState extends State<SendPage> {
       listenWhen: (previous,current)=> current is SendActionState,
       buildWhen: (previous,current)=> current is !SendActionState,
       listener: (context, state) {
-  if(state is SendNavigateActionState){
-    final loadedState = state is SendNavigateActionState;
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>
-      PaymentPage(currentPerson:loadedState[],)));
-  }
+
       },
       builder: (context, state) {
         switch(state.runtimeType){
@@ -86,7 +82,8 @@ final filteredList = _searchQuery.isEmpty?loadedState.contactSort():
                             itemBuilder: (context,index){
                          return InkWell(
                            onTap: (){
-                             sendBloc.add(SendNavigateEvent(sendAmount: filteredList[index]));
+Navigator.push(context, MaterialPageRoute(builder: (context)=>
+PaymentPage(currentPerson: filteredList[index])));
                            },
                            child: Container(
                              margin: const EdgeInsets.only(bottom: 10),
