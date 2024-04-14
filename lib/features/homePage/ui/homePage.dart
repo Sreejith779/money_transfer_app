@@ -31,14 +31,14 @@ class _HomePageState extends State<HomePage> {
   listener: (context, state) {
 if(state is HomeNavigateActioState){
   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-  SendPage()));
+  const SendPage()));
 }
   },
   builder: (context, state) {
         switch(state.runtimeType){
           case HomeLoadedState:
             return Scaffold(
-
+ backgroundColor: Colors.white,
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 leading: const Padding(
@@ -47,16 +47,16 @@ if(state is HomeNavigateActioState){
                     radius: 20,
                   ),
                 ),
-                title: const Column(
+                title:   Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    Text("Welcome back",style: TextStyle(
+                    const Text("Welcome back",style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15
                     ),),
                     Text("Sreejith K M",style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.black.withOpacity(0.8),
                         fontSize: 22,
                         fontWeight: FontWeight.w500
                     ),),
@@ -145,81 +145,52 @@ if(state is HomeNavigateActioState){
                       children: [
                         Container(
                           height: 60,
-                          width: MediaQuery.of(context).size.width*0.15,
+                          width: MediaQuery.of(context).size.width*0.35,
                           decoration: BoxDecoration(
                               color: Colors.grey.withOpacity(0.4),
                               borderRadius: BorderRadius.circular(15)
                           ),
-                          child: IconButton(onPressed: () {
+                          child: TextButton(onPressed: () {
                             homeBloc.add(HomeNavigateEvent());
                           },
-                            icon: const Icon(Icons.send),),
+                            child:   Text("Send",
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.8),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700
+                            ),),)
+
                         ),
                         const SizedBox(width: 10),
                         Container(
                           height: 60,
-                          width: MediaQuery.of(context).size.width*0.15,
+                          width: MediaQuery.of(context).size.width*0.35,
                           decoration: BoxDecoration(
                               color: Colors.grey.withOpacity(0.4),
                               borderRadius: BorderRadius.circular(15)
                           ),
-                          child: IconButton(onPressed: () {  },
-                            icon: const Icon(Icons.attach_money),),
+                          child:    Center(child: Text("Deposit",
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.8),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700
+                          ),))
                         ),
-                        const SizedBox(width: 10),
-                        Container(
-                          height: 60,
-                          width: MediaQuery.of(context).size.width*0.15,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: IconButton(onPressed: () {  },
-                            icon: const Icon(Icons.change_circle_rounded),),
-                        ),
-                        const SizedBox(width: 10),
-                        Container(
-                          height: 60,
-                          width: MediaQuery.of(context).size.width*0.15,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: IconButton(onPressed: () {  },
-                            icon: const Icon(Icons.history),),
-                        ),
-                        const SizedBox(width: 10),
+
+
+
 
                       ],
                     ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 22,top: 10,right: 25),
-                          child: Text("Send"),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 5,top: 10,right: 22),
-                          child: Text("Deposit"),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10,right: 25),
-                          child: Text("change"),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only( top: 10,right: 30),
-                          child: Text("history"),
-                        )
-                      ],
-                    ),
 
-                    const Padding(
-                      padding: EdgeInsets.only(top: 40),
+
+                      Padding(
+                      padding: const EdgeInsets.only(top: 40),
                       child: Text("Last Transactions",
                         style: TextStyle(
                             fontSize: 22,
-                            fontWeight: FontWeight.w600
+                            fontWeight: FontWeight.w600,
+                          color: Colors.black.withOpacity(0.8)
                         ),),
                     ),
 
@@ -229,7 +200,7 @@ if(state is HomeNavigateActioState){
             );
 
           default:
-            return Center(child: Text("Error"));
+            return const Center(child: Text("Error"));
         }
 
   },

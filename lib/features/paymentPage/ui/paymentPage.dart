@@ -1,9 +1,9 @@
-import 'dart:ui';
+ 
 
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
+
+ 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_transfer_app/model/contactModel.dart';
 
@@ -19,6 +19,8 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   PaymentBloc paymentBloc = PaymentBloc();
+  bool isSelect = false;
+
   @override
   void initState() {
     paymentBloc.add(PaymentInitialEvent());
@@ -35,81 +37,187 @@ class _PaymentPageState extends State<PaymentPage> {
         // TODO: implement listener
       },
       builder: (context, state) {
+
         switch (state.runtimeType) {
           case PaymentLoadedState:
             return Scaffold(
-              body: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 80),
-                      child: Center(
-                          child: CircleAvatar(
-                        radius: 30,
-                      )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text(
-                        "Paying ${widget.currentPerson.name}",
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w400),
+              backgroundColor: Colors.white,
+              body: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Container(
+                  margin: const EdgeInsets.only(left: 20,right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 80),
+                        child: Center(
+                            child: CircleAvatar(
+                          radius: 30,
+                        )),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/circle.png",
-                          height: 20,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Center(
+                          child: Text(
+                            "Paying ${widget.currentPerson.name}",
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "Banking name: ${widget.currentPerson.bankingname.toUpperCase()}",
-                          style: const TextStyle(fontSize: 17),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child:
-                          Text("+91 ${widget.currentPerson.number.toString()}"),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Row(
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.currency_rupee_outlined),
-                          SizedBox(
-                            width: 100,
-                            child: TextField(),
+                          Image.asset(
+                            "assets/circle.png",
+                            height: 20,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Banking name: ${widget.currentPerson.bankingname.toUpperCase()}",
+                            style: const TextStyle(fontSize: 17),
                           ),
                         ],
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child:
+                            Center(child: Text("+91 ${widget.currentPerson.number.toString()}")),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.currency_rupee_outlined),
+                            SizedBox(
+                              width: 100,
+                              child: TextField(
+                                keyboardType: TextInputType.numberWithOptions(
+                                ),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 22
+
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
                         margin: const EdgeInsets.only(
-                            left: 80, right: 80, bottom: 370, top: 20),
+                            left: 80, right: 80, bottom: 30, top: 50),
                         decoration: BoxDecoration(
-                            color: Colors.deepPurple.withOpacity(0.5),
+                            color: Colors.deepPurple.withOpacity(0.7),
                             borderRadius: BorderRadius.circular(15)),
                         child: const TextField(
+                          textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 hintText: "Add a note",
                                 hintStyle: TextStyle(
+
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 17),
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide.none))),
                       ),
-                    )
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(),
+                        child: Text("Pay from",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500
+                          ),),
+                      ),
+                      Row(
+mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              Positioned(
+
+                                child: Checkbox(
+side: const BorderSide(color: Colors.deepPurple,width: 3),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(100)
+                                    ),
+                                    value: isSelect,
+                                    onChanged: (value){
+                                      setState(() {
+                                        isSelect = !isSelect;
+                                      });
+                                    }),
+                              ),
+                            ],
+                          ),
+                          const Text("Wallet pay",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17
+                          ),)
+                        ],
+                      ),
+                      const Text("Available Balance"),
+                      const Divider(),
+                      Row(
+mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+
+                            child: Checkbox(
+side: const BorderSide(
+  color: Colors.deepPurple,
+  width: 3
+),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100)
+                                ),
+                                value: !isSelect,
+                                onChanged: (card){
+                                  setState(() {
+                                    isSelect = !isSelect;
+                                  });
+                                }),
+                          ),
+                            const Text("Card pay",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17
+                          ),)
+                        ],
+                      ),
+                      const Divider(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Container(
+                          width: double.maxFinite,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.deepPurple,
+                          ),
+                          child: const Center(
+                            child: Text("Send",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white
+                            ),),
+                          ),
+                        ),
+                      )
+
+
+                    ],
+                  ),
+
+
                 ),
               ),
             );
