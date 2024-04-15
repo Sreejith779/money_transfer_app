@@ -1,11 +1,9 @@
- 
-
-
 import 'package:flutter/material.dart';
 
- 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_transfer_app/features/%20sucessfulPage/ui/sucessfulPage.dart';
 import 'package:money_transfer_app/model/contactModel.dart';
+import 'package:money_transfer_app/model/walletBalance.dart';
 
 import '../bloc/payment_bloc.dart';
 
@@ -20,6 +18,8 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   PaymentBloc paymentBloc = PaymentBloc();
   bool isSelect = false;
+
+  int enteredAmount = BalanceAmount.enteredAmountz;
 
   @override
   void initState() {
@@ -37,7 +37,6 @@ class _PaymentPageState extends State<PaymentPage> {
         // TODO: implement listener
       },
       builder: (context, state) {
-
         switch (state.runtimeType) {
           case PaymentLoadedState:
             return Scaffold(
@@ -45,10 +44,9 @@ class _PaymentPageState extends State<PaymentPage> {
               body: SingleChildScrollView(
                 physics: const NeverScrollableScrollPhysics(),
                 child: Container(
-                  margin: const EdgeInsets.only(left: 20,right: 20),
+                  margin: const EdgeInsets.only(left: 20, right: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
                       const Padding(
                         padding: EdgeInsets.only(top: 80),
@@ -85,25 +83,27 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
-                        child:
-                            Center(child: Text("+91 ${widget.currentPerson.number.toString()}")),
+                        child: Center(
+                            child: Text(
+                                "+91 ${widget.currentPerson.number.toString()}")),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10),
+                        Padding(
+                        padding: const EdgeInsets.only(top: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.currency_rupee_outlined),
+                            const Icon(Icons.currency_rupee_outlined),
                             SizedBox(
                               width: 100,
                               child: TextField(
-                                keyboardType: TextInputType.numberWithOptions(
-                                ),
+                                onChanged: (amount){
+                                  setState(() {
+enteredAmount = int.tryParse(amount)??0;
+                                  });
+                                },
+                                keyboardType: TextInputType.number,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 22
-
-                                ),
+                                style: const TextStyle(fontSize: 22),
                               ),
                             ),
                           ],
@@ -116,11 +116,10 @@ class _PaymentPageState extends State<PaymentPage> {
                             color: Colors.deepPurple.withOpacity(0.7),
                             borderRadius: BorderRadius.circular(15)),
                         child: const TextField(
-                          textAlign: TextAlign.center,
+                            textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 hintText: "Add a note",
                                 hintStyle: TextStyle(
-
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 17),
@@ -129,26 +128,26 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       const Padding(
                         padding: EdgeInsets.only(),
-                        child: Text("Pay from",
+                        child: Text(
+                          "Pay from",
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500
-                          ),),
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
                       ),
                       Row(
-mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Stack(
                             children: [
                               Positioned(
-
                                 child: Checkbox(
-side: const BorderSide(color: Colors.deepPurple,width: 3),
+                                    side: const BorderSide(
+                                        color: Colors.deepPurple, width: 3),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(100)
-                                    ),
+                                        borderRadius:
+                                            BorderRadius.circular(100)),
                                     value: isSelect,
-                                    onChanged: (value){
+                                    onChanged: (value) {
                                       setState(() {
                                         isSelect = !isSelect;
                                       });
@@ -156,68 +155,69 @@ side: const BorderSide(color: Colors.deepPurple,width: 3),
                               ),
                             ],
                           ),
-                          const Text("Wallet pay",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17
-                          ),)
+                          const Text(
+                            "Wallet pay",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 17),
+                          )
                         ],
                       ),
-                      const Text("Available Balance"),
+                      Text(
+                          "Available Balance: ${BalanceAmount.payBalance(0)} rs"),
                       const Divider(),
                       Row(
-mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Align(
-
                             child: Checkbox(
-side: const BorderSide(
-  color: Colors.deepPurple,
-  width: 3
-),
+                                side: const BorderSide(
+                                    color: Colors.deepPurple, width: 3),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100)
-                                ),
+                                    borderRadius: BorderRadius.circular(100)),
                                 value: !isSelect,
-                                onChanged: (card){
+                                onChanged: (card) {
                                   setState(() {
                                     isSelect = !isSelect;
                                   });
                                 }),
                           ),
-                            const Text("Card pay",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17
-                          ),)
+                          const Text(
+                            "Card pay",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 17),
+                          )
                         ],
                       ),
                       const Divider(),
                       Padding(
                         padding: const EdgeInsets.only(top: 50),
-                        child: Container(
-                          width: double.maxFinite,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.deepPurple,
-                          ),
-                          child: const Center(
-                            child: Text("Send",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white
-                            ),),
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                            SucessfulPage()));
+                          },
+                          child: Container(
+                            width: double.maxFinite,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.deepPurple,
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "Send",
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white),
+                              ),
+                            ),
                           ),
                         ),
-                      )
-
+                      ),
 
                     ],
                   ),
-
-
                 ),
               ),
             );

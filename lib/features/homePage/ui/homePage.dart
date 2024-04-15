@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
  
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_transfer_app/features/sendPage/ui/sendPage.dart';
+import 'package:money_transfer_app/model/walletBalance.dart';
 
 import '../bloc/home_bloc.dart';
 
@@ -11,12 +12,15 @@ import '../bloc/home_bloc.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   HomeBloc homeBloc = HomeBloc();
+
   @override
   void initState() {
   homeBloc.add(HomeInitialEvent());
@@ -121,7 +125,7 @@ if(state is HomeNavigateActioState){
                               ),)),
                         Positioned(
                             top: 80,left: 20,
-                            child: Text("\$15,782.00",
+                            child: Text( BalanceAmount.payBalance(0).toString(),
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.9),
                                 fontSize: 25,
