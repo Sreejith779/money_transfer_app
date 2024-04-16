@@ -19,12 +19,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeBloc homeBloc = HomeBloc();
+  final amount = BalanceAmount.mainBalance;
 
 
   @override
   void initState() {
   homeBloc.add(HomeInitialEvent());
-    int balances = BalanceAmount.mainBalance;
+
+
     super.initState();
   }
   @override
@@ -127,7 +129,7 @@ if(state is HomeNavigateActioState){
                               ),)),
                         Positioned(
                             top: 80,left: 20,
-                            child: Text(loadedState.balanceAmount.toString(),
+                            child: Text(amount.toString(),
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.9),
                                 fontSize: 25,

@@ -8,7 +8,7 @@ abstract class PaymentActionState extends PaymentState {}
 final class PaymentInitial extends PaymentState {}
 
 class PaymentLoadedState extends PaymentState {
-   int balanceAmount = BalanceAmount.mainBalance;
+final int balanceAmount = BalanceAmount.mainBalance;
 
 
 

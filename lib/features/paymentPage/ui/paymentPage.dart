@@ -102,7 +102,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 onChanged: (amount) {
                                   setState(() {
                                     userEnteredAmount =
-                                        int.tryParse(amount) ?? 0;
+                                        int.tryParse(amount) ?? 0000;
                                   });
                                 },
                                 keyboardType: TextInputType.number,
@@ -166,8 +166,17 @@ class _PaymentPageState extends State<PaymentPage> {
                           )
                         ],
                       ),
-                      Text(
-                          "Available Balance: ${loadedState.balanceAmount} rs"),
+                        Row(
+                        children: [
+                          const Text(
+                              "Available Balance:"),
+                          Text(" ${loadedState.balanceAmount} Rs"
+                              ,style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16
+                            ),)
+                        ],
+                      ),
                       const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,

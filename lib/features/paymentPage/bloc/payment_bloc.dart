@@ -15,12 +15,12 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   }
 
   FutureOr<void> paymentInitialEvent(PaymentInitialEvent event, Emitter<PaymentState> emit) {
-    emit(PaymentLoadedState());
+    emit(PaymentLoadedState( ));
   }
 
   FutureOr<void> paymentAmount(PaymentAmount event, Emitter<PaymentState> emit) {
     BalanceAmount.payBalance(event.amount);
-    print("balance left: ${BalanceAmount.mainBalance}");
-    emit(PaymentLoadedState());
+
+    emit(PaymentLoadedState( ));
   }
 }
