@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
   homeBloc.add(HomeInitialEvent());
+    int balances = BalanceAmount.mainBalance;
     super.initState();
   }
   @override
@@ -41,6 +42,7 @@ if(state is HomeNavigateActioState){
   builder: (context, state) {
         switch(state.runtimeType){
           case HomeLoadedState:
+            final loadedState = state as HomeLoadedState;
             return Scaffold(
  backgroundColor: Colors.white,
               appBar: AppBar(
@@ -125,7 +127,7 @@ if(state is HomeNavigateActioState){
                               ),)),
                         Positioned(
                             top: 80,left: 20,
-                            child: Text( BalanceAmount.payBalance(BalanceAmount.mainBalance).toString(),
+                            child: Text(loadedState.balanceAmount.toString(),
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.9),
                                 fontSize: 25,

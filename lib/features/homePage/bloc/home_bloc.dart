@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:money_transfer_app/model/walletBalance.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

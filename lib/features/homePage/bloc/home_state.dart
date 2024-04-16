@@ -7,5 +7,7 @@ abstract class HomeActionState extends HomeState{}
 final class HomeInitial extends HomeState {}
 
 
-class HomeLoadedState extends HomeState{}
+class HomeLoadedState extends HomeState{
+  final int balanceAmount = BalanceAmount.mainBalance;
+}
 class HomeNavigateActioState extends HomeActionState{}

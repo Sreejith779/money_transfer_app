@@ -40,6 +40,7 @@ class _PaymentPageState extends State<PaymentPage> {
       builder: (context, state) {
         switch (state.runtimeType) {
           case PaymentLoadedState:
+            final loadedState = state as PaymentLoadedState;
             return Scaffold(
               backgroundColor: Colors.white,
               body: SingleChildScrollView(
@@ -166,7 +167,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         ],
                       ),
                       Text(
-                          "Available Balance: ${BalanceAmount.mainBalance} rs"),
+                          "Available Balance: ${loadedState.balanceAmount} rs"),
                       const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
