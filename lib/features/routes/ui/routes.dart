@@ -12,7 +12,7 @@ class Routes extends StatefulWidget {
 class _RoutesState extends State<Routes> {
   var isSelect = 0;
  final List tabs =[
-   HomePage(),
+   HomePage( ),
    RecentPage()
  ];
   @override

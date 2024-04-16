@@ -10,8 +10,7 @@ import '../bloc/home_bloc.dart';
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+    HomePage({super.key });
 
 
   @override
@@ -20,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeBloc homeBloc = HomeBloc();
+
 
   @override
   void initState() {
@@ -125,7 +125,7 @@ if(state is HomeNavigateActioState){
                               ),)),
                         Positioned(
                             top: 80,left: 20,
-                            child: Text( BalanceAmount.payBalance(0).toString(),
+                            child: Text( BalanceAmount.payBalance(BalanceAmount.mainBalance).toString(),
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.9),
                                 fontSize: 25,

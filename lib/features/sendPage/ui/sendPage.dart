@@ -14,6 +14,7 @@ class SendPage extends StatefulWidget {
 
 class _SendPageState extends State<SendPage> {
 
+
   var _searchQuery = '';
 
   @override

@@ -19,7 +19,8 @@ class _PaymentPageState extends State<PaymentPage> {
   PaymentBloc paymentBloc = PaymentBloc();
   bool isSelect = false;
 
-  int enteredAmount = BalanceAmount.enteredAmountz;
+  late int userEnteredAmount;
+  TextEditingController amountController = TextEditingController();
 
   @override
   void initState() {
@@ -31,8 +32,8 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<PaymentBloc, PaymentState>(
       bloc: paymentBloc,
-      listenWhen: (previous, current) => current is PaymentActiontState,
-      buildWhen: (previous, current) => current is! PaymentActiontState,
+      listenWhen: (previous, current) => current is PaymentActionState,
+      buildWhen: (previous, current) => current is! PaymentActionState,
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -59,7 +60,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         padding: const EdgeInsets.only(top: 8),
                         child: Center(
                           child: Text(
-                            "Paying ${widget.currentPerson.name}",
+                            "Paying To ${widget.currentPerson.name}",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w400),
                           ),
@@ -87,7 +88,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             child: Text(
                                 "+91 ${widget.currentPerson.number.toString()}")),
                       ),
-                        Padding(
+                      Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -96,9 +97,11 @@ class _PaymentPageState extends State<PaymentPage> {
                             SizedBox(
                               width: 100,
                               child: TextField(
-                                onChanged: (amount){
+                                controller: amountController,
+                                onChanged: (amount) {
                                   setState(() {
-enteredAmount = int.tryParse(amount)??0;
+                                    userEnteredAmount =
+                                        int.tryParse(amount) ?? 0;
                                   });
                                 },
                                 keyboardType: TextInputType.number,
@@ -163,7 +166,7 @@ enteredAmount = int.tryParse(amount)??0;
                         ],
                       ),
                       Text(
-                          "Available Balance: ${BalanceAmount.payBalance(0)} rs"),
+                          "Available Balance: ${BalanceAmount.mainBalance} rs"),
                       const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -192,9 +195,18 @@ enteredAmount = int.tryParse(amount)??0;
                       Padding(
                         padding: const EdgeInsets.only(top: 50),
                         child: InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                            SucessfulPage()));
+                          onTap: () {
+                           paymentBloc.add(PaymentAmount(amount: userEnteredAmount));
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SucessfulPage(
+                                          payeeName: widget.currentPerson,
+                                          finalAmount:  userEnteredAmount
+                                        )
+                                )
+                            );
                           },
                           child: Container(
                             width: double.maxFinite,
@@ -215,7 +227,6 @@ enteredAmount = int.tryParse(amount)??0;
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
