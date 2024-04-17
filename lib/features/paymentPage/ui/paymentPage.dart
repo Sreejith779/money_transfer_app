@@ -206,7 +206,8 @@ class _PaymentPageState extends State<PaymentPage> {
                         padding: const EdgeInsets.only(top: 50),
                         child: InkWell(
                           onTap: () {
-                           paymentBloc.add(PaymentAmount(amount: userEnteredAmount));
+                           paymentBloc.add(PaymentAmount(amount: userEnteredAmount,
+                               transactionModel: widget.currentPerson));
 
                             Navigator.push(
                                 context,
