@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_transfer_app/features/%20sucessfulPage/ui/sucessfulPage.dart';
 import 'package:money_transfer_app/model/contactModel.dart';
+import 'package:money_transfer_app/model/transactionModel.dart';
 import 'package:money_transfer_app/model/walletBalance.dart';
 
 import '../bloc/payment_bloc.dart';
@@ -20,6 +21,7 @@ class _PaymentPageState extends State<PaymentPage> {
   bool isSelect = false;
 
   late int userEnteredAmount;
+ 
   TextEditingController amountController = TextEditingController();
 
   @override
@@ -50,11 +52,12 @@ class _PaymentPageState extends State<PaymentPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
+                        Padding(
                         padding: EdgeInsets.only(top: 80),
                         child: Center(
                             child: CircleAvatar(
                           radius: 30,
+                              backgroundImage: NetworkImage(widget.currentPerson.images),
                         )),
                       ),
                       Padding(
@@ -115,11 +118,12 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(
-                            left: 80, right: 80, bottom: 30, top: 50),
+                            left: 90, right: 80, bottom: 30, top: 50),
                         decoration: BoxDecoration(
                             color: Colors.deepPurple.withOpacity(0.7),
                             borderRadius: BorderRadius.circular(15)),
-                        child: const TextField(
+                        child:   const TextField(
+
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 hintText: "Add a note",
@@ -207,7 +211,9 @@ class _PaymentPageState extends State<PaymentPage> {
                         child: InkWell(
                           onTap: () {
                            paymentBloc.add(PaymentAmount(amount: userEnteredAmount,
-                               transactionModel: widget.currentPerson));
+                               userDetails: TransactionModel(name: widget.currentPerson.name,
+                                   note:  "", amount: userEnteredAmount))
+                           );
 
                             Navigator.push(
                                 context,

@@ -25,9 +25,9 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
   FutureOr<void> paymentAmount(PaymentAmount event, Emitter<PaymentState> emit) {
     BalanceAmount.payBalance(event.amount);
-transactions.add(event.transactionModel);
-transactions.add(event.amount)
+transactions.add(event.userDetails);
 
+print(transactions.toString());
 print(BalanceAmount.mainBalance);
 
     emit(PaymentLoadedState( ));

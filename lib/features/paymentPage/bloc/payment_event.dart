@@ -9,9 +9,9 @@ class WalletAmountEvent extends PaymentEvent {}
 
 class PaymentAmount extends PaymentEvent {
   final int amount;
-  final  ContactModel transactionModel;
+  final  TransactionModel userDetails;
 
-  PaymentAmount({required this.amount,required this.transactionModel});
+  PaymentAmount({required this.amount,required this.userDetails});
 
 
 }
