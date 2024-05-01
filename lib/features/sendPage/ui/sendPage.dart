@@ -96,7 +96,7 @@ class _SendPageState extends State<SendPage> {
                                   margin: const EdgeInsets.only(bottom: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15)),
-                                  child: Row(
+                                  child: Row( 
                                     children: [
                                         CircleAvatar(
                                         radius: 25,
